@@ -1,0 +1,99 @@
+
+
+
+import java.util.Scanner;
+
+interface Atmoperation
+{
+    String withdraw(double amount);
+    String deposit(double amount);
+    String checkBalance();
+}
+class Bankaccount
+{
+    private double balance;
+    public Bankaccount(double balance)
+    {
+        this.balance=balance;
+    }
+    public double getBalance()
+    {
+        return balance;
+    }
+    public void setBalance(double balance)
+    {
+        this.balance=balance;
+    }
+}
+public class Atm implements Atmoperation
+{
+    private Bankaccount bankaccount;
+    public Atm(Bankaccount bankaccount)
+    {
+        this.bankaccount=bankaccount;
+    }
+    public String withdraw(double amount)
+    {
+        if(amount>bankaccount.getBalance())
+        {
+            return "Insufficient Balance";
+           
+        }
+   
+        bankaccount.setBalance(bankaccount.getBalance()-amount);
+        return "withdraw is sucessfull "+bankaccount.getBalance();
+    }
+    public String deposit(double amount)
+    {
+         bankaccount.setBalance(bankaccount.getBalance()+amount);
+        return "Deposit is sucessfull "+bankaccount.getBalance();
+    }
+    public String checkBalance()
+    {
+        return "current balance : "+bankaccount.getBalance();
+    }
+    }
+    class Main
+    {
+        public static void main(String args[])
+        {
+            Scanner scan=new Scanner(System.in);
+            int c;
+            Bankaccount b=new Bankaccount(1000);
+            Atm a=new Atm(b);
+            do
+            {
+                System.out.println(" Welcome to ATM : ");
+                System.out.println("1.Withdraw ");
+                System.out.println("2.Deposit ");
+                System.out.println("3. Checkbalance ");
+                System.out.println("choose the option : ");
+                int choice=scan.nextInt();
+                switch(choice)
+                {
+                    case 1:
+                        System.out.println(a.withdraw(500));
+                        break;
+                       
+                    case 2:
+                        System.out.println(a.deposit(2000));
+                        break;
+                       
+                  case 3:
+                      System.out.println(a.checkBalance());
+                      break;
+                      default:
+                      System.out.println("invalid choice");
+                     
+               
+                }
+                System.out.println("yes 1 and No" );
+                c=scan.nextInt();
+            }
+            while(c==1);
+        }
+    }
+   
+       
+  
+
